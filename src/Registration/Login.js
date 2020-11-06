@@ -12,15 +12,21 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
+import EmailIcon from '@material-ui/icons/Email';
+//import './style.css'
 
 const useStyles = makeStyles({
     root: { 
-      height: '40vh',
-      backgroundColor:'#white',
+      height: '60vh',
       minWidth: 275,
+      color: "white"
     },
     table: {
       minWidth: 300,
+      color: "white",
     },
     title: {
       fontSize: 24,
@@ -44,23 +50,26 @@ function Login(props) {
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
-        alert("Login Success")
+        //alert("Login Success")
         //redirectToHome()
-        /*const payload={
+        const payload={
+            "username":state.username,
             "email":state.email,
             "password":state.password,
         }
-        axios.post('http://dev-api.qwikxr.com/api/v1/auth/get-token/', payload)
+        axios.post('http://dev-api.qwikxr.com/api/v1/auth/get-token/', {payload})
             .then(function (response) {
+                alert("Login Success")
+                console.log("Login Success")
                 if(response.status === 200){
                     setState(prevState => ({
                         ...prevState,
-                        'successMessage' : 'Login successful. Redirecting to home page..'
+                        "token": "1615762ba7991b631f337c57f11760220ce0b0b2"
                     }))
                     props.showError(null)
                     alert("Login Success")
                 }
-                else if(response.code === 204){
+                else if(response.code === 401){
                     props.showError("Username and password do not match");
                 }
                 else{
@@ -69,7 +78,7 @@ function Login(props) {
             })
             .catch(function (error) {
                 console.log(error);
-            });*/
+            })
     }
 
     /*const sendDetailsToServer = () => {
@@ -87,14 +96,14 @@ function Login(props) {
     }
 
   return (
-    <div mt={6} className={classes.root}>
+    <div mt={6} className={classes.root} style={{background:"none"}}>
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className="table" aria-label="simple table">
       <TableHead>
           <TableRow>
             <TableCell align="center">
-              <Typography className={classes.title} color="text-black" gutterBottom>
-                  <span className="h2 align-items-center">Login/Register</span>
+              <Typography className={classes.title}  gutterBottom>
+                  <span className="h2 align-items-center text-white">Login/Register</span>
               </Typography>
             </TableCell>
             <TableCell>
@@ -104,6 +113,25 @@ function Login(props) {
         <TableBody>
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <PersonIcon />
+                  </IconButton>
+                  <TextField type="text" 
+                      className="form-control" 
+                      color="white"
+                      id="username" 
+                      aria-describedby="userNameHelp" 
+                      placeholder="Enter Username" 
+                      value={state.username}
+                      onChange={handleChange}
+                  />
+                </TableCell>
+            </TableRow >
+            <TableRow >
+                <TableCell align="left">
+                  <IconButton>
+                      <EmailIcon />
+                  </IconButton>
                   <TextField type="email" 
                       className="form-control" 
                       id="email" 
@@ -116,6 +144,9 @@ function Login(props) {
             </TableRow >
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <LockIcon />
+                  </IconButton>
                   <TextField type="password" 
                       className="form-control" 
                       id="password"

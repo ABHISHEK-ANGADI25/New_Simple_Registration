@@ -1,0 +1,44 @@
+
+.table{
+    background: none;
+    min-width: 300px;
+}
+
+.login-box{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:white;
+}
+
+.textbox{
+    width: 100%;
+    font-size: 20px;
+    padding: 8px 0;
+    margin-bottom: 8px 0;
+    border-bottom: 1px solid #4caf50;
+}
+
+.textbox i {
+    width: 26px;
+    float: left;
+    text-align: center;
+}
+
+.textbox input{
+    border: none;
+    outline: none;
+    background: none;
+    color: black;
+    font-size: 18px;
+}
+
+.btn{
+    width: 100%;
+    background-color: "primary";
+    padding: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}

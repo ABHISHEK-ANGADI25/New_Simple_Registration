@@ -41,24 +41,24 @@ const useStyles = makeStyles({
 
   return (
     <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={12} spacing={2}>
+      <Grid item xs={12} >
         <Grid container justify="center">
-            <Grid spacing={2}>
-              <Paper className={classes.paper}  >
-                  <IconButton>
-                      <PersonIcon />
+            <Grid >
+              <Paper className={classes.paper} style={{background:"none", paddingLeft:"2px 0", spacing: "2px"}}  >
+                  <IconButton onClick={() => redirectToRegister()}>
+                      <PersonIcon style={{ fontSize: 60, color:"white" }}/>
                   </IconButton>
                   <br />
-                  <span className="loginText" onClick={() => redirectToRegister()}>Individual</span>
+                  <span className="loginText" style={{ color:"white" }} onClick={() => redirectToRegister()}>Individual</span>
               </Paper >
             </Grid>
             <Grid >
-            <Paper className={classes.paper}  >
-                  <IconButton>
-                      <BusinessIcon />
+            <Paper className={classes.paper} style={{background:"none", paddingLeft:"2px 0", spacing: "2px"}}  >
+                  <IconButton onClick={() => redirectToSignUp()}>
+                      <BusinessIcon style={{ fontSize: 60, color:"white" }} />
                   </IconButton>
                   <br />
-                  <span className="loginText" onClick={() => redirectToSignUp()}>Organization</span>
+                  <span className="loginText" style={{ color:"white" }} onClick={() => redirectToSignUp()}>Organization</span>
               </Paper >
             </Grid>
         </Grid>

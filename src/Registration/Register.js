@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,7 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 import Typography from '@material-ui/core/Typography';
-import SmartphoneIcon from '@material-ui/icons/Smartphone';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+//import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles({
@@ -49,6 +51,46 @@ function Register(props) {
         }))
     }
 
+    const handleSubmitClick = (e) => {
+      e.preventDefault();
+      //alert("Login Success")
+      //redirectToHome()
+      const payload={
+          "name":state.name,
+          "username":state.username,
+          "email":state.email,
+          "password":state.password,
+      }
+      axios.post('http://dev-api.qwikxr.com/api/v1/register/', {payload})
+          .then(function (response) {
+              alert("Login Success")
+              console.log("Registration Success")
+              if(response.status === 412){
+                  setState(prevState => ({
+                      ...prevState,
+                      "message": "Username already exists."
+                  }))
+                  props.showError(null)
+                  alert("Login Success")
+              }
+              else if(response.code === 200){
+                setState(prevState => ({
+                  ...prevState,
+                  "message": "Successfully registered",
+                  "token": "b117378677e05c7095db451bd908dda91d7e007b"
+              }))
+              props.showError(null)
+              alert("Login Success")
+              }
+              else{
+                  props.showError("Username does not exists");
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          })
+  }
+
     /*const sendDetailsToServer = () => {
         redirectToHome();
     }
@@ -65,7 +107,7 @@ function Register(props) {
       <TableHead>
           <TableRow>
             <TableCell align="center">
-              <Typography className={classes.title} color="text-black" gutterBottom>
+              <Typography className={classes.title} gutterBottom>
                   <span className="h2 align-items-center">Register/Login</span>
               </Typography>
             </TableCell>
@@ -76,6 +118,9 @@ function Register(props) {
         <TableBody>
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <PersonIcon />
+                  </IconButton>
                   <TextField type="text" 
                       className="form-control" 
                       id="name" 
@@ -88,6 +133,9 @@ function Register(props) {
             </TableRow >
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <AssignmentIndIcon />
+                  </IconButton>
                   <TextField type="text" 
                       className="form-control" 
                       id="username" 
@@ -100,6 +148,9 @@ function Register(props) {
             </TableRow >
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <EmailIcon />
+                  </IconButton>
                   <TextField type="email" 
                       className="form-control" 
                       id="email" 
@@ -112,6 +163,9 @@ function Register(props) {
             </TableRow >
             <TableRow >
                 <TableCell align="left">
+                  <IconButton>
+                      <LockIcon />
+                  </IconButton>
                   <TextField type="password" 
                       className="form-control" 
                       id="password"
@@ -128,7 +182,7 @@ function Register(props) {
                     color="primary"
                     type="submit" 
                     className="btn btn-primary"
-                    //onClick={handleSubmitClick}
+                    onClick={handleSubmitClick}
                 >
                     Register
                 </Button>
